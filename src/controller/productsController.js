@@ -1,5 +1,4 @@
 const productService = require('../services/productsService');
-const productSchema = require('../schemas/productsSchema');
 
 const createProduct = async (req, res) => {
     return await productService.createProductService(req, res);

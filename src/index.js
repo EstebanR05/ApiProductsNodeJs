@@ -17,7 +17,6 @@ mongoose.connect(urlMongo, {
 });
 
 const db = mongoose.connection;
-
 db.on('error', console.error.bind(console, 'Error Conexion in MongoDB:'));
 db.once('open', () => { console.log('Conected base of data') });
 
