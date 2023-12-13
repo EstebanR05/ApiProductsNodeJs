@@ -1,14 +1,30 @@
 const productService = require('../services/productsService');
+const productSchema = require('../schemas/productsSchema');
 
-const getProducts = (req, res) => {
-    const products = productService.getProductsService(req, res);
-    console.log(products); 
-    res.send("this is getProducts");
+const createProduct = async (req, res) => {
+    return await productService.createProductService(req, res);
 };
 
-const ProductPrice = (req, res) => {
-    const servicePrice = productService.ProductPriceService(req, res) 
-    res.send("we have in ", req.params.nameProduct, "whith id: ", req.params.id);
+const getProducts = async (req, res) => {
+    return await productService.getProductsService(req, res);
 };
 
-module.exports = { getProducts, ProductPrice };
+const updateProduct = async (req, res) => {
+    return await productService.updateProductService(req, res);
+};
+
+const deleteProduct = async (req, res) => {
+    return await productService.deleteProductService(req, res);
+};
+
+const ProductPrice = async (req, res) => {
+   return await productService.ProductPriceService(req, res);
+};
+
+module.exports = {
+    createProduct,
+    getProducts,
+    updateProduct,
+    deleteProduct,
+    ProductPrice,
+};

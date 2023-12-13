@@ -11,8 +11,14 @@ app.use('/api', productsRoutes);
 
 app.get('/', (req, res) => res.send("Welcom this is a principal Route"));
 
-mongoose.connect(urlMongo)
-    .then(() => console.log("conected to MongoDB"))
-    .catch((error) => console.log(error));
+mongoose.connect(urlMongo, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'Error Conexion in MongoDB:'));
+db.once('open', () => { console.log('Conected base of data') });
 
 app.listen(port, () => console.log("server Listen in the port: ", port));
