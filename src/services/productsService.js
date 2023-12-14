@@ -1,12 +1,10 @@
 const productSchema = require('../schemas/productsSchema');
 
-const createProductService = async (req, res) => {
-    try {
-
-    } catch (error) {
-        console.error('Error in create products:', error);
-        res.status(500).json({ error: 'Error in create Products' });
-    }
+const createProductService = (req, res) => {
+    const product = productSchema(req.body);
+    product.save()
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
 };
 
 const getProductsService = async (req, res) => {

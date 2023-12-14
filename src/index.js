@@ -11,10 +11,7 @@ app.use('/api', productsRoutes);
 
 app.get('/', (req, res) => res.send("Welcom this is a principal Route"));
 
-mongoose.connect(urlMongo, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+mongoose.connect(urlMongo);
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Error Conexion in MongoDB:'));
