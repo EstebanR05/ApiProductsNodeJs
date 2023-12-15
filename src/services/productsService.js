@@ -1,12 +1,5 @@
 const productSchema = require('../schemas/productsSchema');
 
-const createProductService = (req, res) => {
-    const product = productSchema(req.body);
-    product.save()
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error }));
-};
-
 const getProductsService = async (req, res) => {
     try {
         const results = await productSchema.find({});
@@ -17,37 +10,22 @@ const getProductsService = async (req, res) => {
     }
 };
 
-const updateProductService = async (req, res) => {
-    try {
-
-    } catch (error) {
-        console.error('Error in update products:', error);
-        res.status(500).json({ error: 'Error in Update Products' });
-    }
-};
-
-const deleteProductService = async (req, res) => {
-    try {
-
-    } catch (error) {
-        console.error('Error in delete products:', error);
-        res.status(500).json({ error: 'Error in delete Products' });
-    }
-};
-
 const ProductPriceService = async (req, res) => {
     try {
+        const results = await productSchema.find({});
+        let product = {};
 
+        for (let index = 0; index < results.length; index++) {
+            if (results[index]._id == req.params.user_id && results[index].name == req.params.product_name) {
+                product = results[index];
+            }
+        }
+
+        res.json(product);
     } catch (error) {
         console.error('Error in price products:', error);
         res.status(500).json({ error: 'Error in Price Products' });
     }
 };
 
-module.exports = {
-    createProductService,
-    getProductsService,
-    updateProductService,
-    deleteProductService,
-    ProductPriceService,
-};
+module.exports = { getProductsService, ProductPriceService };
