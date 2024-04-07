@@ -2,7 +2,8 @@ const productSchema = require('../schemas/productsSchema');
 
 const getProductsService = async (req, res) => {
     try {
-        res.json(await productSchema.find({}));
+        const products = await productSchema.find({ $or: [{ inStock: true }, { stock: true }] });
+        res.json(products);
     } catch (error) {
         handleError(res, error, 'Error in get Products');
     }
