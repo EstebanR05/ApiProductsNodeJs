@@ -8,9 +8,7 @@ const urlMongo = "mongodb://drenvio:moM5f3AodwLE5d0A@ac-aemgtkt-shard-00-00.unqy
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
-app.use('/api', productsRoutes);
-
-app.get('/', (req, res) => res.send("Welcome, this is the main route"));
+app.use('/', productsRoutes);
 
 mongoose.connect(urlMongo, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
