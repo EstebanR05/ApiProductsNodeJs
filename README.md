@@ -1,99 +1,175 @@
-# ApiProductsNodeJs
+# ApiProductsNodeJs Monorepo
 
-API RESTful para la gestión de productos, desarrollada con Node.js, Express y MongoDB.
+A fullstack monorepo for a Products Management application, featuring a RESTful API (Node.js, Express, MongoDB) and a modern React frontend. All package management and scripts are handled with [Bun](https://bun.sh/).
 
-## Tabla de Contenidos
+---
 
-- [Descripción](#descripción)
-- [Características](#características)
-- [Instalación](#instalación)
-- [Uso](#uso)
-- [Rutas de la API](#rutas-de-la-api)
-- [Modelo de Datos](#modelo-de-datos)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Contribuciones](#contribuciones)
-- [Licencia](#licencia)
+## Table of Contents
 
-## Descripción
+- [About](#about)
+- [Tech Stack](#tech-stack)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Data Model](#data-model)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-Este proyecto es una API que permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre productos. Está pensada para ser utilizada como backend de una aplicación de inventario, tienda en línea, o cualquier sistema que requiera gestión de productos.
+---
 
-## Características
+## About
 
-- CRUD de productos
-- Validación de datos
-- Conexión a base de datos MongoDB Atlas
-- Estructura modular (controladores, rutas, servicios, esquemas)
-- Fácil de extender
+This monorepo contains:
 
-## Instalación
+- **Backend**: A RESTful API for product management (CRUD), built with Node.js, Express, and MongoDB.
+- **Frontend**: A React application for interacting with the API, styled with Tailwind CSS and built with Vite.
 
-1. Clona el repositorio:
-   ```bash
-   git clone <URL-de-tu-repositorio>
+---
+
+## Tech Stack
+
+- **Monorepo Manager**: [Bun](https://bun.sh/) (v1.1+)
+- **Node.js**: v20.x (Bun is compatible and fast with Node.js APIs)
+- **Backend**: Node.js, Express, Mongoose, TypeScript
+- **Frontend**: React 18, Vite, Tailwind CSS, DaisyUI, SweetAlert2
+
+---
+
+## Requirements
+
+- [Bun](https://bun.sh/) v1.1 or higher
+- Node.js v20.x (for compatibility)
+- MongoDB Atlas or local MongoDB instance
+
+---
+
+## Installation
+
+1. **Clone the repository:**
+   ```sh
+   git clone <your-repo-url>
+   cd ApiProductsNodeJs
    ```
-2. Entra al directorio del backend:
-   ```bash
-   cd ApiProductsNodeJs/backend
+
+2. **Install all dependencies (monorepo):**
+   ```sh
+   bun install
    ```
-3. Instala las dependencias:
-   ```bash
-   npm install
+
+3. **Set up environment variables:**
+   - For production, move your MongoDB connection string to a `.env` file in `backend/`.
+
+---
+
+## Usage
+
+### Backend
+
+1. **Start the backend server:**
+   ```sh
+   cd backend
+   bun run dev
    ```
-4. Configura las variables de entorno (por ejemplo, la URL de MongoDB está en el código fuente, pero deberías moverla a un archivo `.env` para producción).
+   The API will be available at `http://localhost:4000/api/products`.
 
-## Uso
+### Frontend
 
-1. Inicia el servidor:
-   ```bash
-   npm start
+1. **Start the frontend dev server:**
+   ```sh
+   cd frontend
+   bun run dev
    ```
-2. La API estará disponible en `http://localhost:4000/api/products`.
+   The app will be available at `http://localhost:5173` (or the port Vite chooses).
 
-## Rutas de la API
+---
 
-| Método | Ruta                  | Descripción                |
-|--------|-----------------------|---------------------------|
-| GET    | /api/products         | Listar todos los productos|
-| GET    | /api/products/:id     | Obtener un producto       |
-| POST   | /api/products         | Crear un nuevo producto   |
-| PUT    | /api/products/:id     | Actualizar un producto    |
-| DELETE | /api/products/:id     | Eliminar un producto      |
+## API Endpoints
 
-## Modelo de Datos
+| Method | Route                  | Description                |
+|--------|------------------------|----------------------------|
+| GET    | /api/products          | List all products          |
+| GET    | /api/products/:id      | Get a product by ID        |
+| POST   | /api/products          | Create a new product       |
+| PUT    | /api/products/:id      | Update a product           |
+| DELETE | /api/products/:id      | Delete a product           |
 
-El modelo de producto está definido de la siguiente manera:
+---
+
+## Data Model
+
+Product schema (Mongoose):
 
 ```js
 {
-  name: String,         // Nombre del producto (requerido)
-  description: String,  // Descripción
-  sku: String,          // SKU único (requerido)
-  inStock: Boolean,     // ¿En stock? (por defecto: false)
-  basePrice: Number,    // Precio base (requerido)
-  brand: String,        // Marca (requerido)
-  stock: Boolean,       // ¿En stock? (por defecto: false)
-  imageUrl: String      // URL de la imagen
+  name: String,         // required
+  description: String,
+  sku: String,          // required, unique
+  inStock: Boolean,     // default: false
+  basePrice: Number,    // required
+  brand: String,        // required
+  stock: Boolean,       // default: false
+  imageUrl: String
 }
 ```
 
-## Estructura del Proyecto
+---
+
+## Project Structure
 
 ```
-backend/
-  ├── src/
-  │   ├── controller/
-  │   ├── routes/
-  │   ├── schemas/
-  │   └── services/
-  ├── package.json
-  └── index.ts
+ApiProductsNodeJs/
+├── backend/
+│   ├── src/
+│   │   ├── controller/
+│   │   ├── routes/
+│   │   ├── schemas/
+│   │   └── services/
+│   ├── package.json
+│   └── ...
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── assets/
+│   │   ├── config/
+│   │   └── utils/
+│   ├── package.json
+│   └── ...
+├── README.md
+└── ...
 ```
 
-## Contribuciones
+---
 
-¡Las contribuciones son bienvenidas! Por favor, abre un issue o un pull request para sugerir mejoras.
+## Scripts (with Bun)
 
-## Licencia
+From the root, you can run scripts in each package:
 
-Este proyecto está bajo la licencia MIT.
+- **Install all dependencies:**  
+  `bun install`
+- **Start backend:**  
+  `cd backend && bun run dev`
+- **Start frontend:**  
+  `cd frontend && bun run dev`
+- **Build frontend:**  
+  `cd frontend && bun run build`
+
+---
+
+## Contributing
+
+Contributions are welcome! Please open an issue or pull request for suggestions or improvements.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+**Note:**  
+- Replace `<your-repo-url>` with your actual repository URL.  
+- For production, always use environment variables for sensitive data (like MongoDB connection strings).  
+- You can add a root `bunfig.toml` or workspace configuration for advanced monorepo management.
